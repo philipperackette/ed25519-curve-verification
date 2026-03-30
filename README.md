@@ -28,6 +28,18 @@ This repository closes that gap. What the book admits, this code proves.
 
 ---
 
+## Scope
+
+This repository is **not** a production Ed25519 signing library.
+
+It is a standalone mathematical verification program whose purpose is to:
+- verify the Ed25519 field and curve parameters,
+- prove the subgroup order of the standard base point,
+- compute the full curve order independently via Schoof's algorithm.
+
+If you want a production cryptographic implementation, use a well-audited solution appropriate to your operating environment and threat model.
+If you want an independently readable mathematical verification of the curve parameters, this repository is for that purpose.
+
 ## What this program verifies
 
 The verification proceeds in eight steps, each building on the previous ones.
@@ -76,6 +88,18 @@ The full verification was executed on a miniPC (AMD Ryzen 3 3250U, 6 GB RAM, Lin
 The complete execution log, system information, and SHA-256 hashes are available in the [`verification/`](verification/) directory. The hash manifest is signed with my PGP key (fingerprint `BC69 21A8 5B8D DBB5 F3A6 EB81 9055 4E6A 6924 F3C7`).
 
 ---
+
+## Quick start
+
+```bash
+g++ -O2 -std=c++17 -Wall -Wextra -pedantic -o ed25519_verify ed25519_verify.cpp
+./ed25519_verify --generator-only
+```
+
+- `--generator-only`: fast sanity verification (seconds)
+- no argument: full verification including Schoof (hours to tens of hours)
+- `--schoof-only`: Schoof stage only
+- `--small-test`: brute-force tests on small curves
 
 ## Build and run
 
