@@ -20,6 +20,13 @@ E : Y² = X³ + aX + b
 
 where the discriminant is nonzero.
 
+**Algebraic closure.**
+The symbol `F̄_p` denotes the algebraic closure of `F_p`. It contains all finite extensions `F_(p^n)` and may be viewed informally as
+
+`F̄_p = ⋃_(n≥1) F_(p^n)`.
+
+An element of `F̄_p` is an element that satisfies some nonzero polynomial with coefficients in `F_p`; such an element is called **algebraic** over `F_p`. Equivalently, every nonconstant polynomial with coefficients in `F_p` splits completely over `F̄_p`.
+
 **Rational points.**
 More generally, if `K` is a field containing the coefficients of the curve, the notation `E(K)` means the set of points of the curve whose coordinates lie in `K`, together with the point at infinity **O**.
 
@@ -29,6 +36,8 @@ Thus:
 
 The points in `E(F_p)` are called the `F_p`-rational points of the curve. In this context, “rational” does not mean “rational number”: it means “defined over the field under consideration.”
 
+Example: a point may fail to belong to `E(F_p)` because one of its coordinates is not in `F_p`, but still belong to `E(F_(p^2))` or another extension field. Thus `E(F_p)` is the set of points defined over the base field, while `E(F̄_p)` contains all points defined over all finite extensions.
+
 This distinction is fundamental for Schoof's algorithm. The quantity to be counted is `#E(F_p)`, the number of points defined over the base field, whereas the torsion subgroups `E[l]` are naturally studied inside `E(F̄_p)`.
 
 Equivalently, the `F_p`-rational points are exactly the points fixed by the Frobenius endomorphism.
@@ -37,13 +46,17 @@ Equivalently, the `F_p`-rational points are exactly the points fixed by the Frob
 For a point P on the curve and an integer m, the notation `[m]P` means the sum of P with itself m times under the group law. In particular, `[0]P = O`.
 
 **Torsion points.**
-For a prime `l ≠ p`, the **l-torsion subgroup** is the set of all points (possibly defined over extension fields of F_p) annihilated by scalar multiplication by l:
+A point `P` on the curve is called a torsion point if there exists a positive integer `m` such that `[m]P = O`. In other words, a torsion point is a point of finite order.
+
+For a prime `l ≠ p`, the **l-torsion subgroup** is the set of all points (possibly defined over extension fields of `F_p`) annihilated by scalar multiplication by `l`:
 
 ```
 E[l] = { P ∈ E(F̄_p) : [l]P = O }
 ```
 
-This subgroup is isomorphic to `(Z/lZ)²` and has exactly `l²` elements. It can be viewed as a two-dimensional vector space over the field with l elements.
+This subgroup is isomorphic to `(Z/lZ)²` and has exactly `l²` elements. It can be viewed as a two-dimensional vector space over the field with `l` elements.
+
+This is why torsion points are so important in Schoof's algorithm: on `E[l]`, scalar multiplication depends only on residues modulo `l`, so the huge integer `p` collapses to `p mod l`, and the unknown trace `t` can also be read modulo `l`.
 
 **Frobenius endomorphism.**
 The map `φ : (x, y) ↦ (x^p, y^p)` is an endomorphism of the curve. It fixes exactly the points defined over F_p.
@@ -54,13 +67,19 @@ The map `φ : (x, y) ↦ (x^p, y^p)` is an endomorphism of the curve. It fixes e
 
 The central quantity is `#E(F_p)`, the number of rational points on the curve.
 
-By **Hasse's theorem**, there exists an integer t (the *trace of Frobenius*) such that:
+The integer `t` defined by
 
 ```
-#E(F_p) = p + 1 - t       with  |t| ≤ 2√p
+#E(F_p) = p + 1 - t
 ```
 
-Point counting is therefore equivalent to computing this integer t.
+is called the **trace of Frobenius**. **Hasse's theorem** states that it satisfies
+
+```
+|t| ≤ 2√p
+```
+
+Point counting is therefore equivalent to computing this integer `t`.
 
 ---
 
@@ -81,6 +100,8 @@ The algorithm rests on the following structural theorem.
 ```
 φ² - [t]φ + [p] = 0       in End(E)
 ```
+
+Here `End(E)` denotes the ring of endomorphisms of the elliptic curve, that is, the maps from `E` to itself that respect the group structure.
 
 Applied to any point P on the curve, this becomes:
 
@@ -138,7 +159,11 @@ Instead of enumerating the torsion points, Schoof works in the **quotient ring**
 R_l = F_p[X] / (ψ_l(X))
 ```
 
-In this ring, the residue class of X represents the x-coordinate of a generic nonzero l-torsion point. This is one of the decisive conceptual tricks: rather than handling concrete torsion points, the algorithm works symbolically with a universal representative modulo the torsion relation.
+In this ring, the residue class of `X` represents the x-coordinate of a generic nonzero `l`-torsion point. This is one of the decisive conceptual tricks: rather than handling concrete torsion points, the algorithm works symbolically with a universal representative modulo the torsion relation.
+
+A useful analogy is this: instead of choosing one explicit `l`-torsion point and computing with its coordinates, we let `X` stand for the x-coordinate of a "generic" nonzero `l`-torsion point, subject only to the relation `ψ_l(X)=0`.
+
+In this way, one symbolic computation modulo `ψ_l` simultaneously captures what would otherwise have to be checked point by point over extension fields.
 
 ---
 
