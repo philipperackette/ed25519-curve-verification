@@ -1,0 +1,4 @@
+
+===== Compiling =====
+Command: g++ -O2 -std=c++17 -Wall -Wextra -pedantic -o /Users/philipperackette/Downloads/ed25519-verification-main/validation_output_20260330T232330Z/ed25519_verify /Users/philipperackette/Downloads/ed25519-verification-main/ed25519_verify.cpp
+Exit code: 0

@@ -1,0 +1,76 @@
+Validation run timestamp (UTC): 2026-03-30T23:23:30Z
+Working directory: /Users/philipperackette/Downloads/ed25519-verification-main
+Output directory:  /Users/philipperackette/Downloads/ed25519-verification-main/validation_output_20260330T232330Z
+Source file:       /Users/philipperackette/Downloads/ed25519-verification-main/ed25519_verify.cpp
+
+--- uname -a ---
+Darwin MacBook-Air.local 25.4.0 Darwin Kernel Version 25.4.0: Thu Mar 19 19:32:36 PDT 2026; root:xnu-12377.101.15~1/RELEASE_ARM64_T8103 arm64
+
+--- os-release ---
+/etc/os-release not available
+
+--- hostname ---
+MacBook-Air.local
+
+--- hostnamectl ---
+Command not available: hostnamectl
+
+--- sw_vers ---
+ProductName:		macOS
+ProductVersion:		26.4
+BuildVersion:		25E246
+
+--- lscpu ---
+Command not available: lscpu
+
+--- sysctl -n machdep.cpu.brand_string ---
+Apple M1
+
+--- sysctl -n hw.ncpu ---
+8
+
+--- nproc ---
+8
+
+--- free -h ---
+Command not available: free
+
+--- vm_stat ---
+Mach Virtual Memory Statistics: (page size of 16384 bytes)
+Pages free:                                3566.
+Pages active:                             82065.
+Pages inactive:                           73652.
+Pages speculative:                         7761.
+Pages throttled:                              0.
+Pages wired down:                         90872.
+Pages purgeable:                              2.
+"Translation faults":                  61950898.
+Pages copy-on-write:                   13739393.
+Pages zero filled:                     29263786.
+Pages reactivated:                     13306031.
+Pages purged:                           1363237.
+File-backed pages:                        71280.
+Anonymous pages:                          92198.
+Pages stored in compressor:              699343.
+Pages occupied by compressor:            230579.
+Decompressions:                        17701596.
+Compressions:                          19833589.
+Pageins:                                3879588.
+Pageouts:                                 65029.
+Swapins:                                  62493.
+Swapouts:                                149056.
+
+--- g++ --version ---
+Apple clang version 21.0.0 (clang-2100.0.123.102)
+Target: arm64-apple-darwin25.4.0
+Thread model: posix
+InstalledDir: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin
+
+--- clang++ --version ---
+Apple clang version 21.0.0 (clang-2100.0.123.102)
+Target: arm64-apple-darwin25.4.0
+Thread model: posix
+InstalledDir: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin
+
+--- SHA-256 of source ---
+448afd27c32a1f8903a033715704d8a757423726744b62c1a7f62101382f9981  /Users/philipperackette/Downloads/ed25519-verification-main/ed25519_verify.cpp

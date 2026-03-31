@@ -1,0 +1,956 @@
+
+===== Running verification (full) =====
+Command: /Users/philipperackette/Downloads/ed25519-verification-main/validation_output_20260330T232330Z/ed25519_verify
+Started: 2026-03-30T23:23:36Z
+
+--- Portable timing mode ---
+Started epoch:  1774913016
+╔════════════════════════════════════════════════════════════╗
+║  Ed25519 Independent Verification                         ║
+║  Zero dependencies — self-contained 256-bit arithmetic    ║
+╚════════════════════════════════════════════════════════════╝
+
+================================================================
+  STEP 1: Verify p = 2^255 - 19 is prime
+================================================================
+
+  p = 57896044618658097711785492504343953926634992332820282019728792003956564819949
+  p has 255 bits
+  p == 2^255-19: YES
+  Miller-Rabin (20 bases)... PRIME
+
+================================================================
+  STEP 2: Verify d = -121665/121666 mod p
+================================================================
+
+  d (hex) = 52036cee2b6ffe738cc740797779e89800700a4d4141d8ab75eb4dca135978a3
+  d·121666 + 121665 ≡ 0: YES
+  d is quadratic non-residue: YES (complete addition)
+
+================================================================
+  STEP 3: Compute base point B from y = 4/5 mod p
+================================================================
+
+  y = 4·5⁻¹ mod p
+  y (hex) = 6666666666666666666666666666666666666666666666666666666666666658
+  5·y == 4: YES
+  y == 0x6666...6658: YES
+  sqrt(x²) exists: YES
+  x (hex) = 216936d3cd6e53fec0a4e231fdd6dc5c692cc7609525a7b2c9562d608f25d51a
+  x == 0x216936d3...d51a: YES
+  -x²+y² = 1+d·x²·y²: VERIFIED
+
+================================================================
+  STEP 4: Verify order of base point
+================================================================
+
+  l = 7237005577332262213973186563042994240857116359379907606001950938285454250989
+  (253 bits)
+
+  4a. l prime (MR)... YES
+  4b. [l]B == O ... 0.00s → YES
+  4c. l prime ∧ [l]B=O ∧ B≠O → ord(B) = l  (Lagrange)
+  4d. [l-1]B == -B ... 0.00s → YES
+  4e. [8]B ≠ O: YES
+
+================================================================
+  STEP 5: Verify curve model conversions
+================================================================
+
+  Edwards → Montgomery: ok
+  On Montgomery (Bv²=u³+Au²+u): YES
+  A == 486662: YES
+  On Weierstrass (Y²=X³+aX+b): YES
+  Round-trip Weier→Edwards: YES
+  Discriminant ≠ 0: YES
+
+================================================================
+  STEP 6: Cofactor structure
+================================================================
+
+  (0,-1) on curve: YES
+  [2](0,-1) = O: YES  (order 2)
+  Order-4 point: YES
+  Order-8 point found (attempt 2)
+  → 8 | #E → h ≥ 8 → h = 8 (with Hasse + l prime)
+
+================================================================
+  STEP 7: Group order via Schoof
+================================================================
+
+  Running on Weierstrass model derived from Ed25519.
+  This may take minutes to hours.
+
+
+================================================================
+  SCHOOF — Point counting on Y²=X³+aX+b
+================================================================
+
+  [    0.0s] l=  2  (M: 1 bits)
+           t≡0 (mod 2)
+  [    0.0s] l=  3  (M: 2 bits)
+           ψ_3... deg=4
+           x^p...ok  x^{p²}...ok
+           q = p mod l = 1
+           t≡0 (mod 3)
+  [    0.0s] l=  5  (M: 3 bits)
+           ψ_5... deg=12
+           x^p...ok  x^{p²}...ok
+           q = p mod l = 4
+           f^{(p-1)/2}...ok
+           f^{(p²-1)/2}...ok
+           testing tau 1..2
+             [l=5] tau=1
+               x-test: FAIL
+             [l=5] tau=2
+               x-test: OK
+           x-match for tau=2
+           sign selects -tau=3
+  [    0.1s] l=  7  (M: 5 bits)
+           ψ_7... deg=24
+           x^p...ok  x^{p²}...ok
+           q = p mod l = 3
+           f^{(p-1)/2}...ok
+           f^{(p²-1)/2}...ok
+           testing tau 1..3
+             [l=7] tau=1
+               x-test: FAIL
+             [l=7] tau=2
+               x-test: OK
+           x-match for tau=2
+           sign selects -tau=5
+  [    0.1s] l= 11  (M: 8 bits)
+           ψ_11... deg=60
+           x^p...ok  x^{p²}...ok
+           q = p mod l = 2
+           f^{(p-1)/2}...ok
+           f^{(p²-1)/2}...ok
+           testing tau 1..5
+             [l=11] tau=1
+               x-test: FAIL
+             [l=11] tau=2
+               x-test: FAIL
+             [l=11] tau=3
+               x-test: FAIL
+             [l=11] tau=4
+               x-test: FAIL
+             [l=11] tau=5
+               x-test: OK
+           x-match for tau=5
+           sign selects -tau=6
+  [    0.4s] l= 13  (M: 12 bits)
+           ψ_13... deg=84
+           x^p...ok  x^{p²}...ok
+           q = p mod l = 2
+           t≡0 (mod 13)
+  [    0.7s] l= 17  (M: 15 bits)
+           ψ_17... deg=144
+           x^p...ok  x^{p²}...ok
+           q = p mod l = 7
+           f^{(p-1)/2}...ok
+           f^{(p²-1)/2}...ok
+           testing tau 1..8
+             [l=17] tau=1
+               x-test: FAIL
+             [l=17] tau=2
+               x-test: FAIL
+             [l=17] tau=3
+               x-test: FAIL
+             [l=17] tau=4
+               x-test: FAIL
+             [l=17] tau=5
+               x-test: OK
+           x-match for tau=5
+           sign selects -tau=12
+  [    1.8s] l= 19  (M: 19 bits)
+           ψ_19... deg=180
+           x^p...ok  x^{p²}...ok
+           q = p mod l = 8
+           f^{(p-1)/2}...ok
+           f^{(p²-1)/2}...ok
+           testing tau 1..9
+             [l=19] tau=1
+               x-test: FAIL
+             [l=19] tau=2
+               x-test: FAIL
+             [l=19] tau=3
+               x-test: FAIL
+             [l=19] tau=4
+               x-test: FAIL
+             [l=19] tau=5
+               x-test: FAIL
+             [l=19] tau=6
+               x-test: FAIL
+             [l=19] tau=7
+               x-test: FAIL
+             [l=19] tau=8
+               x-test: OK
+           x-match for tau=8
+           sign selects +tau=8
+  [    4.0s] l= 23  (M: 24 bits)
+           ψ_23... deg=264
+           x^p...ok  x^{p²}...ok
+           q = p mod l = 8
+           f^{(p-1)/2}...ok
+           f^{(p²-1)/2}...ok
+           testing tau 1..11
+             [l=23] tau=1
+               x-test: FAIL
+             [l=23] tau=2
+               x-test: FAIL
+             [l=23] tau=3
+               x-test: FAIL
+             [l=23] tau=4
+               x-test: FAIL
+             [l=23] tau=5
+               x-test: FAIL
+             [l=23] tau=6
+               x-test: FAIL
+             [l=23] tau=7
+               x-test: FAIL
+             [l=23] tau=8
+               x-test: OK
+           x-match for tau=8
+           sign selects -tau=15
+  [    8.5s] l= 29  (M: 28 bits)
+           ψ_29... deg=420
+           x^p...ok  x^{p²}...ok
+           q = p mod l = 18
+           f^{(p-1)/2}...ok
+           f^{(p²-1)/2}...ok
+           testing tau 1..14
+             [l=29] tau=1
+               x-test: FAIL
+             [l=29] tau=2
+               x-test: FAIL
+             [l=29] tau=3
+               x-test: FAIL
+             [l=29] tau=4
+               x-test: FAIL
+             [l=29] tau=5
+               x-test: FAIL
+             [l=29] tau=6
+               x-test: FAIL
+             [l=29] tau=7
+               x-test: FAIL
+             [l=29] tau=8
+               x-test: FAIL
+             [l=29] tau=9
+               x-test: OK
+           x-match for tau=9
+           sign selects -tau=20
+  [   21.6s] l= 31  (M: 33 bits)
+           ψ_31... deg=480
+           x^p...ok  x^{p²}...ok
+           q = p mod l = 13
+           f^{(p-1)/2}...ok
+           f^{(p²-1)/2}...ok
+           testing tau 1..15
+             [l=31] tau=1
+               x-test: FAIL
+             [l=31] tau=2
+               x-test: FAIL
+             [l=31] tau=3
+               x-test: FAIL
+             [l=31] tau=4
+               x-test: FAIL
+             [l=31] tau=5
+               x-test: FAIL
+             [l=31] tau=6
+               x-test: FAIL
+             [l=31] tau=7
+               x-test: FAIL
+             [l=31] tau=8
+               x-test: FAIL
+             [l=31] tau=9
+               x-test: FAIL
+             [l=31] tau=10
+               x-test: FAIL
+             [l=31] tau=11
+               x-test: FAIL
+             [l=31] tau=12
+               x-test: FAIL
+             [l=31] tau=13
+               x-test: FAIL
+             [l=31] tau=14
+               x-test: FAIL
+             [l=31] tau=15
+               x-test: OK
+           x-match for tau=15
+           sign selects +tau=15
+  [   52.2s] l= 37  (M: 38 bits)
+           ψ_37... deg=684
+           x^p...ok  x^{p²}...ok
+           q = p mod l = 26
+           f^{(p-1)/2}...ok
+           f^{(p²-1)/2}...ok
+           testing tau 1..18
+             [l=37] tau=1
+               x-test: FAIL
+             [l=37] tau=2
+               x-test: FAIL
+             [l=37] tau=3
+               x-test: FAIL
+             [l=37] tau=4
+               x-test: FAIL
+             [l=37] tau=5
+               x-test: FAIL
+             [l=37] tau=6
+               x-test: FAIL
+             [l=37] tau=7
+               x-test: FAIL
+             [l=37] tau=8
+               x-test: FAIL
+             [l=37] tau=9
+               x-test: OK
+           x-match for tau=9
+           sign selects +tau=9
+  [   89.8s] l= 41  (M: 43 bits)
+           ψ_41... deg=840
+           x^p...ok  x^{p²}...ok
+           q = p mod l = 31
+           f^{(p-1)/2}...ok
+           f^{(p²-1)/2}...ok
+           testing tau 1..20
+             [l=41] tau=1
+               x-test: FAIL
+             [l=41] tau=2
+               x-test: FAIL
+             [l=41] tau=3
+               x-test: FAIL
+             [l=41] tau=4
+               x-test: FAIL
+             [l=41] tau=5
+               x-test: FAIL
+             [l=41] tau=6
+               x-test: FAIL
+             [l=41] tau=7
+               x-test: FAIL
+             [l=41] tau=8
+               x-test: FAIL
+             [l=41] tau=9
+               x-test: FAIL
+             [l=41] tau=10
+               x-test: FAIL
+             [l=41] tau=11
+               x-test: FAIL
+             [l=41] tau=12
+               x-test: FAIL
+             [l=41] tau=13
+               x-test: FAIL
+             [l=41] tau=14
+               x-test: OK
+           x-match for tau=14
+           sign selects +tau=14
+  [  177.8s] l= 43  (M: 49 bits)
+           ψ_43... deg=924
+           x^p...ok  x^{p²}...ok
+           q = p mod l = 32
+           f^{(p-1)/2}...ok
+           f^{(p²-1)/2}...ok
+           testing tau 1..21
+             [l=43] tau=1
+               x-test: FAIL
+             [l=43] tau=2
+               x-test: FAIL
+             [l=43] tau=3
+               x-test: FAIL
+             [l=43] tau=4
+               x-test: FAIL
+             [l=43] tau=5
+               x-test: FAIL
+             [l=43] tau=6
+               x-test: FAIL
+             [l=43] tau=7
+               x-test: FAIL
+             [l=43] tau=8
+               x-test: OK
+           x-match for tau=8
+           sign selects -tau=35
+  [  248.5s] l= 47  (M: 54 bits)
+           ψ_47... deg=1104
+           x^p...ok  x^{p²}...ok
+           q = p mod l = 32
+           f^{(p-1)/2}...ok
+           f^{(p²-1)/2}...ok
+           testing tau 1..23
+             [l=47] tau=1
+               x-test: FAIL
+             [l=47] tau=2
+               x-test: FAIL
+             [l=47] tau=3
+               x-test: FAIL
+             [l=47] tau=4
+               x-test: FAIL
+             [l=47] tau=5
+               x-test: FAIL
+             [l=47] tau=6
+               x-test: FAIL
+             [l=47] tau=7
+               x-test: FAIL
+             [l=47] tau=8
+               x-test: FAIL
+             [l=47] tau=9
+               x-test: FAIL
+             [l=47] tau=10
+               x-test: FAIL
+             [l=47] tau=11
+               x-test: FAIL
+             [l=47] tau=12
+               x-test: OK
+           x-match for tau=12
+           sign selects +tau=12
+  [  380.6s] l= 53  (M: 60 bits)
+           ψ_53... deg=1404
+           x^p...ok  x^{p²}...ok
+           q = p mod l = 39
+           f^{(p-1)/2}...ok
+           f^{(p²-1)/2}...ok
+           testing tau 1..26
+             [l=53] tau=1
+               x-test: FAIL
+             [l=53] tau=2
+               x-test: FAIL
+             [l=53] tau=3
+               x-test: FAIL
+             [l=53] tau=4
+               x-test: FAIL
+             [l=53] tau=5
+               x-test: FAIL
+             [l=53] tau=6
+               x-test: FAIL
+             [l=53] tau=7
+               x-test: FAIL
+             [l=53] tau=8
+               x-test: FAIL
+             [l=53] tau=9
+               x-test: FAIL
+             [l=53] tau=10
+               x-test: FAIL
+             [l=53] tau=11
+               x-test: FAIL
+             [l=53] tau=12
+               x-test: FAIL
+             [l=53] tau=13
+               x-test: FAIL
+             [l=53] tau=14
+               x-test: FAIL
+             [l=53] tau=15
+               x-test: FAIL
+             [l=53] tau=16
+               x-test: OK
+           x-match for tau=16
+           sign selects +tau=16
+  [  695.7s] l= 59  (M: 65 bits)
+           ψ_59... deg=1740
+           x^p...ok  x^{p²}...ok
+           q = p mod l = 28
+           f^{(p-1)/2}...ok
+           f^{(p²-1)/2}...ok
+           testing tau 1..29
+             [l=59] tau=1
+               x-test: FAIL
+             [l=59] tau=2
+               x-test: FAIL
+             [l=59] tau=3
+               x-test: FAIL
+             [l=59] tau=4
+               x-test: FAIL
+             [l=59] tau=5
+               x-test: FAIL
+             [l=59] tau=6
+               x-test: FAIL
+             [l=59] tau=7
+               x-test: FAIL
+             [l=59] tau=8
+               x-test: FAIL
+             [l=59] tau=9
+               x-test: FAIL
+             [l=59] tau=10
+               x-test: FAIL
+             [l=59] tau=11
+               x-test: FAIL
+             [l=59] tau=12
+               x-test: FAIL
+             [l=59] tau=13
+               x-test: FAIL
+             [l=59] tau=14
+               x-test: FAIL
+             [l=59] tau=15
+               x-test: FAIL
+             [l=59] tau=16
+               x-test: FAIL
+             [l=59] tau=17
+               x-test: FAIL
+             [l=59] tau=18
+               x-test: OK
+           x-match for tau=18
+           sign selects +tau=18
+  [ 1308.9s] l= 61  (M: 71 bits)
+           ψ_61... deg=1860
+           x^p...ok  x^{p²}...ok
+           q = p mod l = 53
+           f^{(p-1)/2}...ok
+           f^{(p²-1)/2}...ok
+           testing tau 1..30
+             [l=61] tau=1
+               x-test: FAIL
+             [l=61] tau=2
+               x-test: FAIL
+             [l=61] tau=3
+               x-test: FAIL
+             [l=61] tau=4
+               x-test: FAIL
+             [l=61] tau=5
+               x-test: FAIL
+             [l=61] tau=6
+               x-test: FAIL
+             [l=61] tau=7
+               x-test: FAIL
+             [l=61] tau=8
+               x-test: FAIL
+             [l=61] tau=9
+               x-test: FAIL
+             [l=61] tau=10
+               x-test: FAIL
+             [l=61] tau=11
+               x-test: FAIL
+             [l=61] tau=12
+               x-test: FAIL
+             [l=61] tau=13
+               x-test: FAIL
+             [l=61] tau=14
+               x-test: OK
+           x-match for tau=14
+           sign selects -tau=47
+  [ 1833.1s] l= 67  (M: 77 bits)
+           ψ_67... deg=2244
+           x^p...ok  x^{p²}...ok
+           q = p mod l = 34
+           f^{(p-1)/2}...ok
+           f^{(p²-1)/2}...ok
+           testing tau 1..33
+             [l=67] tau=1
+               x-test: FAIL
+             [l=67] tau=2
+               x-test: FAIL
+             [l=67] tau=3
+               x-test: FAIL
+             [l=67] tau=4
+               x-test: FAIL
+             [l=67] tau=5
+               x-test: FAIL
+             [l=67] tau=6
+               x-test: FAIL
+             [l=67] tau=7
+               x-test: FAIL
+             [l=67] tau=8
+               x-test: FAIL
+             [l=67] tau=9
+               x-test: FAIL
+             [l=67] tau=10
+               x-test: FAIL
+             [l=67] tau=11
+               x-test: FAIL
+             [l=67] tau=12
+               x-test: FAIL
+             [l=67] tau=13
+               x-test: FAIL
+             [l=67] tau=14
+               x-test: FAIL
+             [l=67] tau=15
+               x-test: FAIL
+             [l=67] tau=16
+               x-test: FAIL
+             [l=67] tau=17
+               x-test: FAIL
+             [l=67] tau=18
+               x-test: FAIL
+             [l=67] tau=19
+               x-test: FAIL
+             [l=67] tau=20
+               x-test: FAIL
+             [l=67] tau=21
+               x-test: FAIL
+             [l=67] tau=22
+               x-test: FAIL
+             [l=67] tau=23
+               x-test: FAIL
+             [l=67] tau=24
+               x-test: FAIL
+             [l=67] tau=25
+               x-test: FAIL
+             [l=67] tau=26
+               x-test: FAIL
+             [l=67] tau=27
+               x-test: FAIL
+             [l=67] tau=28
+               x-test: FAIL
+             [l=67] tau=29
+               x-test: FAIL
+             [l=67] tau=30
+               x-test: OK
+           x-match for tau=30
+           sign selects +tau=30
+  [ 4735.6s] l= 71  (M: 83 bits)
+           ψ_71... deg=2520
+           x^p...ok  x^{p²}...ok
+           q = p mod l = 11
+           f^{(p-1)/2}...ok
+           f^{(p²-1)/2}...ok
+           testing tau 1..35
+             [l=71] tau=1
+               x-test: FAIL
+             [l=71] tau=2
+               x-test: FAIL
+             [l=71] tau=3
+               x-test: FAIL
+             [l=71] tau=4
+               x-test: FAIL
+             [l=71] tau=5
+               x-test: FAIL
+             [l=71] tau=6
+               x-test: FAIL
+             [l=71] tau=7
+               x-test: FAIL
+             [l=71] tau=8
+               x-test: FAIL
+             [l=71] tau=9
+               x-test: FAIL
+             [l=71] tau=10
+               x-test: FAIL
+             [l=71] tau=11
+               x-test: FAIL
+             [l=71] tau=12
+               x-test: FAIL
+             [l=71] tau=13
+               x-test: OK
+           x-match for tau=13
+           sign selects -tau=58
+  [ 5731.0s] l= 73  (M: 89 bits)
+           ψ_73... deg=2664
+           x^p...ok  x^{p²}...ok
+           q = p mod l = 62
+           f^{(p-1)/2}...ok
+           f^{(p²-1)/2}...ok
+           testing tau 1..36
+             [l=73] tau=1
+               x-test: FAIL
+             [l=73] tau=2
+               x-test: FAIL
+             [l=73] tau=3
+               x-test: FAIL
+             [l=73] tau=4
+               x-test: FAIL
+             [l=73] tau=5
+               x-test: FAIL
+             [l=73] tau=6
+               x-test: FAIL
+             [l=73] tau=7
+               x-test: FAIL
+             [l=73] tau=8
+               x-test: OK
+           x-match for tau=8
+           sign selects +tau=8
+  [ 6661.0s] l= 79  (M: 96 bits)
+           ψ_79... deg=3120
+           x^p...ok  x^{p²}...ok
+           q = p mod l = 78
+           f^{(p-1)/2}...ok
+           f^{(p²-1)/2}...ok
+           testing tau 1..39
+             [l=79] tau=1
+               x-test: FAIL
+             [l=79] tau=2
+               x-test: FAIL
+             [l=79] tau=3
+               x-test: FAIL
+             [l=79] tau=4
+               x-test: OK
+           x-match for tau=4
+           sign selects +tau=4
+  [ 7996.1s] l= 83  (M: 102 bits)
+           ψ_83... deg=3444
+           x^p...ok  x^{p²}...ok
+           q = p mod l = 78
+           f^{(p-1)/2}...ok
+           f^{(p²-1)/2}...ok
+           testing tau 1..41
+             [l=83] tau=1
+               x-test: FAIL
+             [l=83] tau=2
+               x-test: FAIL
+             [l=83] tau=3
+               x-test: FAIL
+             [l=83] tau=4
+               x-test: FAIL
+             [l=83] tau=5
+               x-test: FAIL
+             [l=83] tau=6
+               x-test: FAIL
+             [l=83] tau=7
+               x-test: FAIL
+             [l=83] tau=8
+               x-test: FAIL
+             [l=83] tau=9
+               x-test: OK
+           x-match for tau=9
+           sign selects -tau=74
+  [ 9905.2s] l= 89  (M: 108 bits)
+           ψ_89... deg=3960
+           x^p...ok  x^{p²}...ok
+           q = p mod l = 74
+           f^{(p-1)/2}...ok
+           f^{(p²-1)/2}...ok
+           testing tau 1..44
+             [l=89] tau=1
+               x-test: FAIL
+             [l=89] tau=2
+               x-test: FAIL
+             [l=89] tau=3
+               x-test: FAIL
+             [l=89] tau=4
+               x-test: FAIL
+             [l=89] tau=5
+               x-test: FAIL
+             [l=89] tau=6
+               x-test: FAIL
+             [l=89] tau=7
+               x-test: FAIL
+             [l=89] tau=8
+               x-test: FAIL
+             [l=89] tau=9
+               x-test: FAIL
+             [l=89] tau=10
+               x-test: FAIL
+             [l=89] tau=11
+               x-test: FAIL
+             [l=89] tau=12
+               x-test: FAIL
+             [l=89] tau=13
+               x-test: FAIL
+             [l=89] tau=14
+               x-test: FAIL
+             [l=89] tau=15
+               x-test: FAIL
+             [l=89] tau=16
+               x-test: FAIL
+             [l=89] tau=17
+               x-test: FAIL
+             [l=89] tau=18
+               x-test: FAIL
+             [l=89] tau=19
+               x-test: FAIL
+             [l=89] tau=20
+               x-test: FAIL
+             [l=89] tau=21
+               x-test: FAIL
+             [l=89] tau=22
+               x-test: FAIL
+             [l=89] tau=23
+               x-test: FAIL
+             [l=89] tau=24
+               x-test: FAIL
+             [l=89] tau=25
+               x-test: FAIL
+             [l=89] tau=26
+               x-test: FAIL
+             [l=89] tau=27
+               x-test: FAIL
+             [l=89] tau=28
+               x-test: FAIL
+             [l=89] tau=29
+               x-test: FAIL
+             [l=89] tau=30
+               x-test: FAIL
+             [l=89] tau=31
+               x-test: FAIL
+             [l=89] tau=32
+               x-test: FAIL
+             [l=89] tau=33
+               x-test: FAIL
+             [l=89] tau=34
+               x-test: FAIL
+             [l=89] tau=35
+               x-test: FAIL
+             [l=89] tau=36
+               x-test: FAIL
+             [l=89] tau=37
+               x-test: FAIL
+             [l=89] tau=38
+               x-test: FAIL
+             [l=89] tau=39
+               x-test: FAIL
+             [l=89] tau=40
+               x-test: FAIL
+             [l=89] tau=41
+               x-test: FAIL
+             [l=89] tau=42
+               x-test: OK
+           x-match for tau=42
+           sign selects -tau=47
+  [31951.8s] l= 97  (M: 115 bits)
+           ψ_97... deg=4704
+           x^p...ok  x^{p²}...ok
+           q = p mod l = 60
+           f^{(p-1)/2}...ok
+           f^{(p²-1)/2}...ok
+           testing tau 1..48
+             [l=97] tau=1
+               x-test: FAIL
+             [l=97] tau=2
+               x-test: FAIL
+             [l=97] tau=3
+               x-test: FAIL
+             [l=97] tau=4
+               x-test: FAIL
+             [l=97] tau=5
+               x-test: FAIL
+             [l=97] tau=6
+               x-test: FAIL
+             [l=97] tau=7
+               x-test: FAIL
+             [l=97] tau=8
+               x-test: FAIL
+             [l=97] tau=9
+               x-test: FAIL
+             [l=97] tau=10
+               x-test: FAIL
+             [l=97] tau=11
+               x-test: FAIL
+             [l=97] tau=12
+               x-test: FAIL
+             [l=97] tau=13
+               x-test: FAIL
+             [l=97] tau=14
+               x-test: FAIL
+             [l=97] tau=15
+               x-test: FAIL
+             [l=97] tau=16
+               x-test: FAIL
+             [l=97] tau=17
+               x-test: FAIL
+             [l=97] tau=18
+               x-test: FAIL
+             [l=97] tau=19
+               x-test: FAIL
+             [l=97] tau=20
+               x-test: FAIL
+             [l=97] tau=21
+               x-test: FAIL
+             [l=97] tau=22
+               x-test: FAIL
+             [l=97] tau=23
+               x-test: FAIL
+             [l=97] tau=24
+               x-test: FAIL
+             [l=97] tau=25
+               x-test: FAIL
+             [l=97] tau=26
+               x-test: FAIL
+             [l=97] tau=27
+               x-test: FAIL
+             [l=97] tau=28
+               x-test: FAIL
+             [l=97] tau=29
+               x-test: FAIL
+             [l=97] tau=30
+               x-test: FAIL
+             [l=97] tau=31
+               x-test: FAIL
+             [l=97] tau=32
+               x-test: FAIL
+             [l=97] tau=33
+               x-test: FAIL
+             [l=97] tau=34
+               x-test: FAIL
+             [l=97] tau=35
+               x-test: FAIL
+             [l=97] tau=36
+               x-test: FAIL
+             [l=97] tau=37
+               x-test: FAIL
+             [l=97] tau=38
+               x-test: FAIL
+             [l=97] tau=39
+               x-test: OK
+           x-match for tau=39
+           sign selects +tau=39
+  [57574.2s] l=101  (M: 121 bits)
+           ψ_101... deg=5100
+           x^p...ok  x^{p²}...ok
+           q = p mod l = 50
+           f^{(p-1)/2}...ok
+           f^{(p²-1)/2}...ok
+           testing tau 1..50
+             [l=101] tau=1
+               x-test: FAIL
+             [l=101] tau=2
+               x-test: FAIL
+             [l=101] tau=3
+               x-test: FAIL
+             [l=101] tau=4
+               x-test: FAIL
+             [l=101] tau=5
+               x-test: FAIL
+             [l=101] tau=6
+               x-test: FAIL
+             [l=101] tau=7
+               x-test: FAIL
+             [l=101] tau=8
+               x-test: OK
+           x-match for tau=8
+           sign selects +tau=8
+  [62869.8s] l=103  (M: 128 bits)
+           ψ_103... deg=5304
+           x^p...ok  x^{p²}...ok
+           q = p mod l = 85
+           f^{(p-1)/2}...ok
+           f^{(p²-1)/2}...ok
+           testing tau 1..51
+             [l=103] tau=1
+               x-test: FAIL
+             [l=103] tau=2
+               x-test: FAIL
+             [l=103] tau=3
+               x-test: FAIL
+             [l=103] tau=4
+               x-test: FAIL
+             [l=103] tau=5
+               x-test: FAIL
+             [l=103] tau=6
+               x-test: FAIL
+             [l=103] tau=7
+               x-test: FAIL
+             [l=103] tau=8
+               x-test: FAIL
+             [l=103] tau=9
+               x-test: OK
+           x-match for tau=9
+           sign selects -tau=94
+  *** M has 135 bits (≥131), sufficient ***
+
+
+  Schoof: 68881.9s, 27 primes
+  trace |t| = -221938542218978828286815502327069187962
+  #E = 57896044618658097711785492504343953926856930875039260848015607506283634007912
+
+================================================================
+  STEP 8: Compare with expected Ed25519 values
+================================================================
+
+  #E == expected: YES
+  #E == 8·l: YES (cofactor h=8)
+
+================================================================
+  SUMMARY
+================================================================
+
+  Total: 68881.9 s
+  External dependencies: NONE
+  All EC operations coded from mathematical definitions.
+  Expected Ed25519 values used ONLY for final comparison.
+Finished epoch: 1774984041
+Elapsed seconds: 71025
+
+Finished: 2026-03-31T19:07:21Z
