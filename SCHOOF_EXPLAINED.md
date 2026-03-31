@@ -21,7 +21,17 @@ E : Y² = X³ + aX + b
 where the discriminant is nonzero.
 
 **Rational points.**
-The set of points with coordinates in F_p is denoted `E(F_p)`. This includes the point at infinity **O**, which serves as the identity element of the group law.
+More generally, if `K` is a field containing the coefficients of the curve, the notation `E(K)` means the set of points of the curve whose coordinates lie in `K`, together with the point at infinity **O**.
+
+Thus:
+- `E(F_p)` is the set of points defined over the base field `F_p`;
+- `E(F̄_p)` is the set of points defined over the algebraic closure.
+
+The points in `E(F_p)` are called the `F_p`-rational points of the curve. In this context, “rational” does not mean “rational number”: it means “defined over the field under consideration.”
+
+This distinction is fundamental for Schoof's algorithm. The quantity to be counted is `#E(F_p)`, the number of points defined over the base field, whereas the torsion subgroups `E[l]` are naturally studied inside `E(F̄_p)`.
+
+Equivalently, the `F_p`-rational points are exactly the points fixed by the Frobenius endomorphism.
 
 **Scalar multiplication.**
 For a point P on the curve and an integer m, the notation `[m]P` means the sum of P with itself m times under the group law. In particular, `[0]P = O`.
