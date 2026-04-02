@@ -24,8 +24,18 @@ jobs:
 
       - name: Run generator-only check
         run: |
-          ./ed25519_verify --generator-only
+          echo "=== generator-only ==="
+          ./ed25519_verify --generator-only | tee generator_only.log
 
       - name: Run small test
         run: |
-          ./ed25519_verify --small-test
+          echo "=== small-test ==="
+          ./ed25519_verify --small-test | tee small_test.log
+
+      - name: Upload logs
+        uses: actions/upload-artifact@v4
+        with:
+          name: ci-logs
+          path: |
+            generator_only.log
+            small_test.log
